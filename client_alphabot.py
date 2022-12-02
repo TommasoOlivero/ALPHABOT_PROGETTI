@@ -1,34 +1,40 @@
-#ALPHABOT CLIENT
-#creator: Coppola Carmine Mattia & Olivero Tommaso
-
 import socket
 import time
+import pygame as pg
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+stringa = ""
+pg.init()
+screen = pg.display.set_mode((10, 10))
 
-s.connect(("192.168.0.135", 8000))  #IP SERVER
+s.connect(("192.168.0.135", 8000))  #INSERIRE IP SERVER
 
 def main():
-    
     while True:
-        messaggio = input("COMANDO: ") # input comando utente
-
-        if messaggio == "stop":         # in caso fosse inserito "stop" non si richiede il valore secondario e si ferma l'alphabot
-            messaggio += "|0"
-        else:
-            tempo = input("VALORE: ")   # richiesta valore secondatrio
-            messaggio += "|" + tempo
-
-        s.sendall(messaggio.encode())   # invio comando
-
-        if messaggio == "quit" or messaggio == "q" or messaggio == "QUIT" or messaggio == "Q":  # comando per fermare l'ALPHABOT in caso di "emergenza"
-            break
-        
+        pg.display.flip()
+        for event in pg.event.get():
+            if event.type == pg.KEYDOWN:
+                if event.__dict__["unicode"]=="w":
+                    messaggio="g|10"
+                    s.sendall(messaggio.encode())
+                    time.sleep(0.3)
+                if event.__dict__["unicode"]=="d" :
+                    messaggio="c|50"
+                    s.sendall(messaggio.encode())
+                    time.sleep(0.3)
+                if event.__dict__["unicode"]=="a" :
+                    messaggio="c|-50"
+                    s.sendall(messaggio.encode())
+                    time.sleep(0.3)
+                if event.__dict__["unicode"]=="s":
+                    messaggio="g|10"
+                    s.sendall(messaggio.encode())
+                    time.sleep(0.3)
     s.close()
 
-if __name__ == "__main__":  # richiamo al main
+if __name__ == "__main__":
     main()
 
-# 19 cm : 1 s 
-# R_90° : 0.34 s
-# L_90° : 0.34 s
+# 19 cm : 1 s ---> 
+# R_90° : 0.34 s --->
+# L_90° : 0.34 s --->
