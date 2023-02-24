@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login</title>
+    <link rel="stylesheet" href="./static/style.css">
+  </head>
+  <body>
+    <h1 align="center">ALPHABOT</h1>
+    
+    <div class="login-container">
+
+      <form action="" method="POST">
+  
+          <h1>Sign-Up</h1>
+  
+          <label for="username">Nome utente:</label>
+          <input type="text" placeholder="username" name="username" value="{{request.form.username }}">          
+          <label for="password">Password:</label>
+          <input type="password" placeholder="password" name="password" value="{{request.form.password }}">
+          <input type="submit" value="Sign-Up">
+      </form>
+
+  </div>
+  <br><br>
+    <footer>
+      <p>Creato da: Olivero Tommaso e Coppola Mattia</p>
+    </footer>
+  </body>
+</html>

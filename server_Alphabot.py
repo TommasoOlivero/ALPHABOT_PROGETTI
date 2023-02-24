@@ -68,7 +68,7 @@ class AlphaBot(object):
             t=tm.time()
         self.stop()
 
-    def forward(self,tempo, speed=30):
+    def forward(self,tempo, speed=50):
         self.PWMA.ChangeDutyCycle(speed)
         self.PWMB.ChangeDutyCycle(speed)
         GPIO.output(self.IN1, GPIO.LOW)
@@ -81,7 +81,7 @@ class AlphaBot(object):
             t=tm.time()
         self.stop()
 
-    def backward(self,tempo, speed=30):
+    def backward(self,tempo, speed=50):
         self.PWMA.ChangeDutyCycle(speed)
         self.PWMB.ChangeDutyCycle(speed)
         GPIO.output(self.IN1, GPIO.HIGH)
@@ -153,7 +153,7 @@ def main():
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind(("0.0.0.0", 8000))
         s.listen()
-        movimenti={"forward":bot.forward,"backward":bot.backward,"stop":bot.stop,"left":bot.left,"right":bot.right,"quit":s.close,"go":go,"curve":curve}#dizionario comandi
+        movimenti={"forward":bot.forward,"backward":bot.backward,"stop":bot.stop,"left":bot.left,"right":bot.right,"quit":s.close,"g":go,"c":curve}#dizionario comandi
         connection, address= s.accept()#accettazione connessione
         print("ascolto")#messaggio informativo
         while(True):
@@ -166,7 +166,7 @@ def main():
                 movimenti[dati[0]](float(dati[1]))
                 if dati== "quit":
                     break
-            else:
+            """else:
                 f=dati[0]#se il comando non è nel dizionario viene letto nel database
                 res=con.execute(f"SELECT movimenti FROM COMANDI WHERE nome== \"{f}\"")#esecuzione comando sql
                 comandi=res.fetchone()
@@ -178,7 +178,7 @@ def main():
                         movimenti[comando[0]](float(comando[1]))
                     if dati== "quit":
                         break
-            
+            """
 if __name__ == "__main__":
     main()
 
